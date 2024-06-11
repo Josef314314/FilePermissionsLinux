@@ -9,7 +9,7 @@ The task is to examine existing permissions on the file system and need to deter
 
 <h2>Project description</h2>
 
-The research team at my organization needs to update the file permissions for certain files and directories within the projects directory. The permissions do not currently reflect the level of authorization that should be given. I performed the following tasks to checking and and updating these permissions:
+The research team at the organization needs to update the file permissions for certain files and directories within the `projects` directory. The permissions do not currently reflect the level of authorization that should be given. I performed the following tasks to checking and and updating these permissions:
 
 <h2>Environment</h2>
 
@@ -31,78 +31,55 @@ The output of my command indicates that there is one directory named `drafts`, o
 The 10-character string in the first column represents the permissions set on each file or directory. <br />
 <br />
 <p align="left">
-Then, I used a with statement to open the file:  <br/>
-<p align="center">
-<img src="https://i.imgur.com/4Bwwzo5.png" height="60%" width="60%" alt="LinuxComm"/>
-<br />
-<p align="left">
-In the this algorithm, the with statement is used with the .open() function in read mode opens the allow list file for reading purposes. It allows me to access the IP addresses stored in the allow list file. The with keyword will help manage the resources by closing the file after exiting the with statement.
-<br />
+  
+For example, the file permissions for `project_t.txt` are `-rw-rw-r--`. Since the first character is a hyphen `(-)`, this indicates that `project_t.txt` is a file, not a directory `(d)` like `drafts`. The second, fifth, and eighth characters are all `r`, which indicates that user, group, and other all have read permissions. The third and sixth characters are `w`, which indicates that only the user and group have write permissions. The fourth, seventh, and tenth characters are hyphens `(-)` instead of `(x)`, so no one has `execute` permissions.  <br/>
 <br />
   
-- <b>Read the file contents:</b>
+- <b>Change file permissions:</b>
 
-In order to read the file contents, I used the .read() method to convert it into the string: <br/>
+The organization determined that other shouldn't have write access to any of their files. To solve this, I referred to the file permissions that I previously returned. I found out `project_k.txt` must have the write access removed for other. <br/>
+
+I used the following Linux commands to do this:<br/>
 <p align="center">
-<img src="https://i.imgur.com/4Bwwzo5.png" height="60%" width="60%" alt="LinuxComm"/>
+<img src="https://i.imgur.com/ErGJPEy.png" height="60%" width="60%" alt="LinuxComm"/>
 <br />
 
 <p align="left">
-The .read() method converts the file into a string and allows me to read it. I have called the .read() function in the body of the with statement. Then, I assigned the string output of this method to the variable ip_addresses. <br />
-<br />
-In summary, this code reads the contents of the "allow_list.txt" file into a string format that allows me to later use the string to organize and extract data in my Python program.
-<br />
+  
+I removed write permissions from other for the `project_k.txt` file. After this, I used `ls -la` to review the updates I made.
+The first two lines of the screenshot display the commands I entered, and the other lines display the output of the second command. The `chmod` command changes the permissions on files and directories. The first argument indicates what permissions should be changed, and the second argument specifies the file or directory. <br />
 <br />
 
-- <b>Convert the string into a list:</b>
+- <b>Change file permissions on a hidden file:</b>
 
-I wanted it in list format so that I could individually delete IP addresses from the allow list. So next, I used the .split() method to turn the ip_addresses string into a list:  <br/>
+The research team recently archived `project_x.txt`. They do not want anyone to have write access to this project, but the user and group should have read access. <br/>
+
+The following code demonstrates how I used Linux commands to change the permissions: <br/>
 <p align="center">
-<img src="https://i.imgur.com/4Bwwzo5.png" height="60%" width="60%" alt="LinuxComm"/> <br/>
+<img src="https://i.imgur.com/pmQLaWm.png" height="60%" width="60%" alt="LinuxComm"/> <br/>
 <p align="left">
-The purpose of splitting ip_addresses into a list is to make it easier to remove IP addresses from the allow list. By default, the .split() function splits the text by whitespace into list elements. In this algorithm, the .split() function takes the data stored in the variable ip_addresses, which is a string of IP addresses that are each separated by a whitespace, and it converts this string into a list of IP addresses. To store this list, I reassigned it back to the variable ip_addresses.
-<br />
+  
+As before, the first two lines of the screenshot display the commands I entered, and the other lines display the output of the second command. <br />
+I know `.project_x.txt` is a hidden file because it starts with a period `(.)`. <br />
+I removed write permissions from the user with `u-w` and group `g-w`, and added read permissions to the group `g+r`. <br />
 <br />
 
-- <b>Iterate through the remove list:</b>
+- <b>Change directory permissions:</b>
 
-A crucial part of my algorithm is to iterate over the elements of the list, which in our case are IP addresses. To do this, I incorporated a for loop: <br/>
+The organization only wants the `researcher2` user to have access to the `drafts` directory and its contents. In this case, I need to remove execute permissions from group. <br/>
+
+I used the following Linux commands to do so: <br/>
 <p align="center">
-<img src="https://i.imgur.com/4Bwwzo5.png" height="60%" width="60%" alt="LinuxComm"/> <br />
+<img src="https://i.imgur.com/8hRKzBh.png" height="60%" width="60%" alt="LinuxComm"/> <br />
 <p align="left">
-The overall purpose of the for loop in a Python algorithm like this is to apply specific code statements to all elements in a sequence. After the for keyword, there is the loop variable element, followed by the keyword in. That indicates to iterate through the sequence ip_addresses and assign each value to the loop variable element. 
+  
+As previously, the first two lines of the screenshot display the commands I entered, and the other lines display the output of the second command. <br />
+Because the group had execute permissions, therefore I used the `chmod` command to remove them. The `researcher2` user already had execute permissions, so they did not need to be added. 
 <br />
 <br />
 
-- <b>Remove IP addresses that are on the remove list:</b>
+- <b>Summary:</b>
 
-My algorithm requires removing any IP address from the allow list, ip_addresses, that is also contained in remove_list.  As there was no duplication in ip_addresses, I was able to use the following code to do this:  <br/>
-<p align="center">
-<img src="https://i.imgur.com/4Bwwzo5.png" height="60%" width="60%" alt="LinuxComm"/> <br />
-<p align="left">
-First, within my for loop, I created a conditional that evaluated whether or not the loop variable element was found in the ip_addresses list. I did this because applying .remove() to elements that were not found in ip_addresses would result in an error. <br />
-Then, within that conditional, I applied .remove() to ip_addresses. I passed in the loop variable element as the argument so that each IP address that was in the remove_list would be removed from ip_addresses.
-<br />
-<br />
-
-- <b>Update the file with the revised list of IP addresses:</b>
-
-As a final step, I needed to update the allow list file with the revised list of IP addresses. To do so, I first needed to convert the list back into a string. I used the .join() method for this:  <br/>
-<p align="center">
-<img src="https://i.imgur.com/4Bwwzo5.png" height="60%" width="60%" alt="LinuxComm"/> <br />
-<p align="left">
-I used the .join() method in order to join all elements of list ip_addresses into a string so that I could pass it as an argument to the .write() method when writing to the file "allow_list.txt". I made use of the string ("\n") as a separator to instruct Python to place each element on a new line.  <br />
-Then, I used another with statement and the .write() method to update the file: <br/>
-<p align="center">
-<img src="https://i.imgur.com/4Bwwzo5.png" height="60%" width="60%" alt="LinuxComm"/> <br />
-<p align="left">
-This time, I used a second argument of "w" with the open() function in the with statement to call the .write() function in the body of the with statement. The .write() function writes string data to a specified file and replaces any existing file content. <br />
-In this case I wanted to write the updated allow list as a string to the file "allow_list.txt". This way, the restricted content will no longer be accessible to any IP addresses that were removed from the allow list.
-<br />
-<br />
-
-<h2>Summary:</h2>
-
-I created an algorithm that removes IP addresses identified in a remove_list variable from the "allow_list.txt" file of approved IP addresses. This algorithm involved opening the file, converting it to a string to be read, and then converting this string to a list stored in the variable ip_addresses. I then iterated through the IP addresses in remove_list. With each iteration, I evaluated if the element was part of the ip_addresses list. If it was, I applied the .remove() method to it to remove the element from ip_addresses.. After this, I used the .join() method to convert the ip_addresses back into a string so that I could write over the contents of the "allow_list.txt" file with the revised list of IP addresses.
+I changed multiple permissions to match the level of authorization the organization wanted for files and directories in the `projects` directory. The first step in this was using `ls -la` to check the permissions for the directory. This informed my decisions in the following steps. I then used the `chmod` command multiple times to change the permissions on files and directories.  <br/>
 
 </p>
