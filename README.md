@@ -15,7 +15,7 @@ The research team at the organization needs to update the file permissions for c
 
 - <b>Qwiklabs - Linux (Bash shell)</b>
 
-<h2>Task walk-through:</h2>
+<h2>Task walk-through</h2>
 
 - <b>Check file and directory details:</b>
 
@@ -78,7 +78,7 @@ Because the group had execute permissions, therefore I used the `chmod` command 
 <br />
 <br />
 
-- <b>Summary:</b>
+<h2>Summary</h2>
 
 I changed multiple permissions to match the level of authorization the organization wanted for files and directories in the `projects` directory. The first step in this was using `ls -la` to check the permissions for the directory. This informed my decisions in the following steps. I then used the `chmod` command multiple times to change the permissions on files and directories.  <br/>
 
