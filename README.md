@@ -28,7 +28,6 @@ I used the `ls` command with the `-la` option to display a detailed listing of t
 The output of my command indicates that there is one directory named `drafts`, one hidden file named `.project_x.txt`, and five other project files.
 The 10-character string in the first column represents the permissions set on each file or directory. <br />
 <br />
-<p align="left">
   
 For example, the file permissions for `project_t.txt` are `-rw-rw-r--`. Since the first character is a hyphen `(-)`, this indicates that `project_t.txt` is a file, not a directory `(d)` like `drafts`. The second, fifth, and eighth characters are all `r`, which indicates that user, group, and other all have read permissions. The third and sixth characters are `w`, which indicates that only the user and group have write permissions. The fourth, seventh, and tenth characters are hyphens `(-)` instead of `(x)`, so no one has `execute` permissions.  <br/>
 <br />
